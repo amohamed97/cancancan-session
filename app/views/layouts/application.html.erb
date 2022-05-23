@@ -19,6 +19,7 @@
         <%= current_user.email %>
         <%= button_to "Logout", destroy_user_session_path, method: :delete, class: 'btn btn-secondary'  %>
       <% else %>
+        GUEST
         <%= button_to "Login", new_user_session_path, class: 'btn btn-secondary' %>
       <% end %>
     </div>
