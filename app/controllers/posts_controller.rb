@@ -10,7 +10,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
-    render_forbidden unless can? :show, @post
+    authorize! :show, @post
   end
 
   # GET /posts/new
