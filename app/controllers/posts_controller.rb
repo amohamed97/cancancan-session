@@ -19,6 +19,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+    render plain: 'FORBIDDEN' unless can? :edit, @post
   end
 
   # POST /posts or /posts.json
