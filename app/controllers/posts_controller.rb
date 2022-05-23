@@ -10,6 +10,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+    render_forbidden unless can? :show, @post
   end
 
   # GET /posts/new
@@ -19,7 +20,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
-    render plain: 'FORBIDDEN' unless can? :edit, @post
+    render_forbidden unless can? :edit, @post
   end
 
   # POST /posts or /posts.json
@@ -62,7 +63,12 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
+  def render_forbidden
+    render plain: 'FORBIDDEN'
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
     end
