@@ -4,6 +4,6 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    can :manage, Post
+    can :manage, Post, is_public: true
   end
 end
