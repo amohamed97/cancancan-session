@@ -1,12 +1,11 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
+  # before_action :set_post, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: :index
+  load_resource
   authorize_resource
 
   # GET /posts or /posts.json
   def index
-    ability = Ability.new(current_user)
-    @posts = Post.accessible_by(ability)
   end
 
   # GET /posts/1 or /posts/1.json
@@ -15,7 +14,6 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new
   end
 
   # GET /posts/1/edit
@@ -67,13 +65,8 @@ class PostsController < ApplicationController
     render plain: 'FORBIDDEN'
   end
 
-  # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def post_params
-      params.require(:post).permit(:title, :body, :user_id, :is_public, :is_approved)
-    end
+  # Only allow a list of trusted parameters through.
+  def post_params
+    params.require(:post).permit(:title, :body, :user_id, :is_public, :is_approved)
+  end
 end
