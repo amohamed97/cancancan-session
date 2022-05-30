@@ -24,8 +24,12 @@
         <td class="font-weight-bold <%= post.is_approved ? 'text-success' : 'text-danger' %>"><%= post.is_approved ? "YES" : "NO"  %></td>
         <td><%= link_to 'Show', post %></td>
         <% if user_signed_in? %>
-          <td><%= link_to 'Edit', edit_post_path(post) %></td>
-          <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% if policy(post).update? %>
+            <td><%= link_to 'Edit', edit_post_path(post) %></td>
+          <% end %>
+          <% if policy(post).destroy? %>
+            <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
         <% end %>
       </tr>
     <% end %>
