@@ -4,7 +4,7 @@ class PostPolicy < ApplicationPolicy
       if user.is_admin?
         scope.all
       else
-        scope.where(is_public: true)
+        scope.where("is_public = ? or is_approved = ?", true, true)
       end
     end
   end
