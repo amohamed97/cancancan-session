@@ -1,4 +1,8 @@
 class PostPolicy < ApplicationPolicy
+  def show?
+    Scope.new(user, Post).resolve.find_by_id(record.id).present?
+  end
+
   def update?
     record.user == user
   end
